@@ -7,8 +7,9 @@
 	let { children } = $props();
 
 	$effect(() => {
-		document.body.classList.add(config.theme);
-		return () => document.body.classList.remove(config.theme);
+		// Theme is now handled per-page
+		// document.body.classList.add(config.theme);
+		// return () => document.body.classList.remove(config.theme);
 	});
 </script>
 
