@@ -55,7 +55,7 @@
           {#each memos as memo}
             <div class="flex gap-2 mb-4 items-start -mx-1" id={memo.slug}>
               <div class="flex flex-col items-center gap-1 w-10 shrink-0 mt-4">
-                <div class="w-8 h-8 rounded-full overflow-hidden">
+                <div class="w-8 h-8 md:w-9 md:h-9 rounded-full overflow-hidden">
                   <img
                     src={avatar}
                     alt="User"
@@ -68,8 +68,8 @@
               <div
                 class="flex-1 text-[0.95rem] 
                   [&_h1]:text-[1.2rem] [&_h1]:uppercase [&_h1]:font-black [&_h1]:mb-2 [&_h1]:mt-4
-                  [&_h2]:text-[1.1rem] [&_h2]:uppercase [&_h2]:font-bold [&_h2]:mb-2 [&_h2]:mt-3
-                  [&_h3]:text-[1rem] [&_h3]:font-bold [&_h3]:mb-1.5 [&_h3]:mt-2.5
+                  [&_h2]:text-[1.1rem] [&_h2]:uppercase [&_h2]:font-bold [&_h2]:mb-2 [&_h2]:mt-4
+                  [&_h3]:text-[1.05rem] [&_h3]:font-bold [&_h3]:mb-1.5 [&_h3]:mt-3
                   [&_h4]:text-[0.9rem] [&_h4]:font-bold [&_h4]:mb-1 [&_h4]:mt-2
                   [&_h5]:text-[0.8rem] [&_h5]:font-bold [&_h5]:italic [&_h5]:mb-1
                   [&_p]:my-4 [&_img]:grayscale [&_img]:contrast-120 [&_img]:max-w-full [&_img]:my-5 [&_img]:border-2 [&_img]:border-black
