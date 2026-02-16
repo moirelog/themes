@@ -80,7 +80,7 @@
       </div>
     </header>
 
-    <footer class="flex justify-between items-end border-t border-[#F2C94C]/30 pt-2">
+    <footer class="flex justify-between items-end pt-2">
       <div class="text-xs tracking-widest opacity-60">
         {config.author}
       </div>
@@ -257,4 +257,10 @@
       </div>
     {/if}
   </main>
+
+    <footer class="mt-20 mx-12 text-center text-xs tracking-widest pb-8">
+            © {new Date().getFullYear()} {config.author}
+            <span class="mx-2 text-[var(--accent-color)]">::</span>
+            synced from Apple Notes and powered by <a href="https://moire.blog/" target="_blank" class="text-[var(--accent-color)] hover:bg-[var(--accent-color)] hover:text-[var(--bg-color)] transition-colors px-1">MOIRE.BLOG</a>
+    </footer>
 </div>
