@@ -25,7 +25,7 @@
 <svelte:window onscroll={handleScroll} />
 
 <div
-  class="min-h-screen max-w-2xl mx-auto p-4 sm:p-8 selection:bg-[var(--text-color)]/20 selection:text-[var(--bg-color)]"
+  class="min-h-screen max-w-2xl mx-auto p-4 sm:p-8 selection:bg-[var(--text-color)]/50 selection:text-[var(--bg-color)]"
 >
   <header class="mb-12 flex items-end justify-between border-b-2 border-[var(--text-color)] px-2 pb-4 relative">
     <div>
@@ -132,6 +132,12 @@
       </button>
     </div>
   {/if}
+
+  <footer class="mt-16 pb-2 text-center text-[10px] font-bold tracking-widest text-[var(--text-color)] opacity-70">
+      <p class="uppercase">
+          © {new Date().getFullYear()} {config.author} <span class="mx-1 text-[var(--accent-color)]">♥</span> synced from Apple Notes and powered by <a href="https://moire.blog/" target="_blank" class="hover:text-[var(--accent-color)] transition-colors border-b-2 border-dotted border-[var(--text-color)] hover:border-[var(--accent-color)]">MOIRE.BLOG</a>
+      </p>
+  </footer>
 
   <div class="fixed bottom-8 right-8 z-50 hidden md:block">
     <div

@@ -13,7 +13,7 @@
 
   <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-12">
     <aside class="md:col-span-3 md:border-r border-[var(--text-color)]/10 md:pr-8 md:text-right">
-      <header class="sticky top-10">
+      <header class="sticky top-10  md:h-[calc(100vh-2rem)]">
         <h1 class="text-4xl font-black italic mb-4 text-[var(--accent-color)] tracking-tight">{config.title}</h1>
         <div class="text-sm text-[var(--text-color)]/60 italic mb-8">
           <p>{config.description}</p>
@@ -22,7 +22,9 @@
 
         {#if memoList.selectedTag}
           <div class="mb-8">
-            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-color)]/40 mb-2">Filtered View</p>
+            <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-color)]/40 mb-2">
+              Filtered View
+            </p>
             <button
               class="bg-[var(--accent-color)]/10 text-[var(--accent-color)] px-3 py-1 rounded-full text-sm italic hover:bg-[var(--accent-color)]/20 transition-colors"
               onclick={() => memoList.selectTag(null)}
@@ -33,7 +35,11 @@
         {/if}
 
         <div class="hidden md:block">
-          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-color)]/40 mb-4 pb-2 border-b border-[var(--text-color)]/5 inline-block ml-auto">Index</p>
+          <p
+            class="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--text-color)]/40 mb-4 pb-2 border-b border-[var(--text-color)]/5 inline-block ml-auto"
+          >
+            Index
+          </p>
           <ul class="text-sm space-y-3">
             {#each memoList.allTags as tag}
               <li class="list-none">
@@ -50,7 +56,12 @@
             {/each}
           </ul>
         </div>
+
+                  <p class="hidden md:block absolute bottom-6 text-xs opacity-60">
+          © {new Date().getFullYear()} {config.author}, powered by <a href="https://moire.blog/" target="_blank" class="inline hover:underline">MOIRE.BLOG</a>
+        </p>
       </header>
+      
     </aside>
 
     <main class="md:col-span-9 space-y-16 max-w-2xl">
@@ -60,13 +71,20 @@
             <h2 class="text-3xl font-black italic text-[var(--text-color)] tracking-tight">
               {format(new Date(dateKey + 'T00:00:00'), 'MMMM dd, yyyy')}
             </h2>
-            <span class="text-sm text-[var(--text-color)]/40 italic font-medium">{format(new Date(dateKey + 'T00:00:00'), 'EEEE')}</span>
+            <span class="text-sm text-[var(--text-color)]/40 italic font-medium"
+              >{format(new Date(dateKey + 'T00:00:00'), 'EEEE')}</span
+            >
           </div>
 
           <div class="space-y-14">
             {#each memos as memo}
-              <article class="group relative" id={memo.slug}>
-                <div class="absolute -left-20 top-2 hidden xl:block text-xs font-bold tracking-widest text-[var(--text-color)]/30 w-12 text-right uppercase">
+              <article
+                class="group relative"
+                id={memo.slug}
+              >
+                <div
+                  class="absolute -left-20 top-2 hidden xl:block text-xs font-bold tracking-widest text-[var(--text-color)]/30 w-12 text-right uppercase"
+                >
                   {format(memo.date, 'HH:mm')}
                 </div>
 
@@ -91,11 +109,11 @@
                         [&_img]:rounded-sm [&_img]:border-[6px] [&_img]:border-white [&_img]:rotate-1 group-hover:[&_img]:rotate-0 [&_img]:transition-all [&_img]:duration-700
                         [&_.tag-link]:text-xs [&_.tag-link]:mx-1 [&_.tag-link]:font-bold [&_.tag-link]:uppercase [&_.tag-link]:tracking-wider [&_.tag-link]:text-[var(--text-color)]/30 [&_.tag-link:hover]:text-[var(--accent-color)] [&_.tag-link:hover]:underline [&_.tag-link]:no-underline [&_.tag-link]:transition-colors"
                   onclick={(e) => {
-                      const target = e.target as HTMLElement;
-                      if (target.classList.contains('tag-link')) {
-                          const tag = target.dataset.tag;
-                          if (tag) memoList.selectTag(tag);
-                      }
+                    const target = e.target as HTMLElement;
+                    if (target.classList.contains('tag-link')) {
+                      const tag = target.dataset.tag;
+                      if (tag) memoList.selectTag(tag);
+                    }
                   }}
                 >
                   {@html memo.content}

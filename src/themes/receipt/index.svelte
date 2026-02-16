@@ -110,6 +110,9 @@
       <div class="font-['Libre_Barcode_39',cursive] text-3xl my-5 tracking-[5px]">||||| |||| || | ||||| || |</div>
 
       <div class="my-5 text-[#999]">- - - - - - - - - - - - - - -</div>
+
+      <p class="mt-8 mb-1">© {new Date().getFullYear()} {config.author.toUpperCase()}</p>
+      <p class="mb-4">synced from Apple Notes and powered by <a href="https://moire.blog/" target="_blank" class="underline decoration-dotted hover:bg-black hover:text-white transition-colors">MOIRE.BLOG</a></p>
     </footer>
   </div>
 </div>
