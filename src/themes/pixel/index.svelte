@@ -30,7 +30,7 @@
   <header class="mb-12 flex items-end justify-between border-b-2 border-[var(--text-color)] px-2 pb-4 relative">
     <div>
       <h1
-        class="text-4xl text-[var(--accent-color)] drop-shadow-[3px_3px_0_var(--border-color)] uppercase tracking-wider font-black"
+        class="text-4xl text-[var(--accent-color)] drop-shadow-[3px_3px_0_var(--border-color)]/50 uppercase tracking-wider font-black"
       >
         {config.title}
       </h1>
@@ -58,7 +58,7 @@
   <div class="mx-auto grid grid-cols-1 gap-8 2xl:grid-cols-2" data-selected-tag={memoList.selectedTag}>
     {#each memoList.visibleMemos as memo}
       <article
-        class="window-frame relative flex flex-col bg-[var(--card-bg)] border-2 border-[var(--border-color)] shadow-[4px_4px_0_0_var(--accent-color)] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_var(--accent-color)] transition-all duration-200 rounded-xl overflow-hidden"
+        class="window-frame relative flex flex-col bg-[var(--card-bg)] border-2 border-[var(--border-color)] shadow-[4px_4px_0_0_var(--accent-color)]/50 hover:translate-y-[-2px] hover:shadow-[6px_6px_0_0_var(--accent-color)]/50 transition-all duration-200 rounded-xl overflow-hidden"
         id={memo.slug}
       >
         <div
