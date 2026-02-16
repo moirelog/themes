@@ -17,7 +17,7 @@ export async function getMemos(): Promise<Memo[]> {
     Object.entries(memoModules).map(async ([path, rawContent]) => {
       const slug = path.split('/').pop()?.replace('.md', '') || 'unknown';
 
-      const markdownString = rawContent as string;
+      let markdownString = rawContent as string;
 
       const resolveAssets = (markdown: string, memoPath: string) => {
         return markdown.replace(/!\[(.*?)\]\((.*?)\)/g, (match, alt, distinctUrl) => {
@@ -50,27 +50,67 @@ export async function getMemos(): Promise<Memo[]> {
         });
       };
 
-      let processedMarkdown = resolveAssets(markdownString, path);
+      const fmRegex = /^---\s*[\r\n]+([\s\S]*?)[\r\n]+---/;
+      const fmMatch = markdownString.match(fmRegex);
+      let created: Date | null = null;
+      let modified: Date | null = null;
 
-      processedMarkdown = processedMarkdown.replace(
+      if (fmMatch) {
+        const fm = fmMatch[1];
+        markdownString = markdownString.replace(fmRegex, '').trim();
+
+        const createdMatch = fm.match(/created:\s*(.+)/);
+        if (createdMatch) {
+          const createdStr = createdMatch[1].trim();
+          try {
+            created = new Date(createdStr);
+          } catch (e) {
+            console.error(`Failed to parse created date from frontmatter for ${ slug }:`, e);
+          }
+        }
+
+        const modifiedMatch = fm.match(/modified:\s*(.+)/);
+        if (modifiedMatch) {
+          const modifiedStr = modifiedMatch[1].trim();
+          try {
+            modified = new Date(modifiedStr);
+          } catch (e) {
+            console.error(`Failed to parse modified date from frontmatter for ${ slug }:`, e);
+          }
+        }
+      }
+
+      let markdown = resolveAssets(markdownString, path);
+
+      markdown = markdown.replace(
         /(^|\s)#([^\s#.,!?;:()\[\]"']+)/g,
         '$1<button class="tag-link" data-tag="$2">#$2</button>'
       );
 
-      const htmlContent = await marked.parse(processedMarkdown);
+      const htmlContent = await marked.parse(markdown);
 
       let date = new Date();
-      const match = slug.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
-      if (match) {
-        const year = match[1];
-        const month = match[2];
-        const day = match[3];
-        const hour = match[4];
-        const minute = match[5];
-        const second = match[6];
 
-        const isoString = `${ year }-${ month }-${ day }T${ hour }:${ minute }:${ second }Z`;
-        date = new Date(isoString);
+      const filenameDate = (() => {
+        const match = slug.match(/^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/);
+        if (match) {
+          const year = match[1];
+          const month = match[2];
+          const day = match[3];
+          const hour = match[4];
+          const minute = match[5];
+          const second = match[6];
+
+          const isoString = `${ year }-${ month }-${ day }T${ hour }:${ minute }:${ second }Z`;
+          return new Date(isoString);
+        }
+        return null;
+      })();
+
+      if (config.order_by === 'modified') {
+        date = modified || created || filenameDate || new Date();
+      } else {
+        date = created || filenameDate || new Date();
       }
 
       let tags: string[] = [];
@@ -89,7 +129,7 @@ export async function getMemos(): Promise<Memo[]> {
     })
   );
 
-  memos.sort((a, b) => b.slug.localeCompare(a.slug));
+  memos.sort((a, b) => b.date.getTime() - a.date.getTime());
 
   return memos;
 }
